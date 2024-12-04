@@ -10,8 +10,8 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Скачиваем репозиторий с GitHub
-                git url: 'git@github.com:SaiTeR/apache-image-task16.git', branch: 'master'
+                // Скачиваем репозиторий с GitHub, используя SSH credentials
+                git credentialsId: 'c2b72dca-36c7-4e52-bcd3-114e7a266a37', url: 'git@github.com:SaiTeR/apache-image-task16.git', branch: 'master'
             }
         }
 
