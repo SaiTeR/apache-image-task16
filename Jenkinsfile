@@ -55,7 +55,7 @@ pipeline {
                         ssh ubuntu@${env.APACHE_IP} << EOF
 
                         echo "Stopping and removing old container..."
-                        docker stop  || true
+                        docker stop ${env.APACHE_CONTAINER_NAME} || true
                         docker rm ${env.APACHE_CONTAINER_NAME} || true
 
                         echo "Removing old image..."
