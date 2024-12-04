@@ -13,3 +13,5 @@ echo y0_AgAEA7qkoFiZAATuwQAAAAEVHL5WAAAyYJ8u811INKSTYD2ZxqgEgWD7xw|docker login 
   --username oauth \
   --password-stdin \
  cr.yandex
+
+выфвыфвыф
