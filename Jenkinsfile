@@ -2,15 +2,22 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = 'apache-t16'    // Имя собранного Docker-образа
-        DOCKER_TAG = 'latest'          // Тег для образа
-        REGISTRY = 'cr.yandex/crpvem9c0799ctn25n8t'  // Адрес вашего контейнерного реестра
+        DOCKER_IMAGE = 'apache-t16'    
+        DOCKER_TAG = 'latest'          
+        REGISTRY = 'cr.yandex/crpvem9c0799ctn25n8t' 
+
+        APACHE_CONTAINER_NAME = 'apache'
+        NGINX_CONTAINER_NAME = 'nginx'
+
+        APACHE_IP = ''
+        APACHE_PORT = '8085'
+
+        NGINX_IP = ''
     }
 
     stages {
         stage('Checkout') {
             steps {
-                // Скачиваем репозиторий с GitHub, используя SSH credentials
                 git credentialsId: '5993ba5d-138a-4314-a8ca-507961cd0286', url: 'git@github.com:SaiTeR/apache-image-task16.git', branch: 'main'
             }
         }
@@ -40,6 +47,32 @@ pipeline {
             }
         }
 
+
+        stage('Deploy to VM') {
+            steps {
+                script {
+                    sshagent(['5993ba5d-138a-4314-a8ca-507961cd0286']) {
+                        sh """
+                        ssh ubuntu@${env.APACHE_IP} << EOF
+
+                        echo "Stopping and removing old container..."
+                        docker stop  || true
+                        docker rm ${env.APACHE_CONTAINER_NAME} || true
+
+                        echo "Removing old image..."
+                        docker rmi ${env.REGISTRY}/apache:latest || true
+
+                        echo "Pulling new image..."
+                        docker pull ${env.REGISTRY}/apache:latest
+
+                        echo "Running new container..."
+                        docker run -d --name ${env.APACHE_CONTAINER_NAME} -p ${env.APACHE_PORT}:${env.APACHE_PORT} -e PORT=${env.APACHE_PORT} ${env.REGISTRY}/apache:latest
+                        EOF
+                        """
+                    }
+                }
+            }
+        }
     }
 
     post {
