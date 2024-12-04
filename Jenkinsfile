@@ -9,7 +9,7 @@ pipeline {
         APACHE_CONTAINER_NAME = 'apache'
         NGINX_CONTAINER_NAME = 'nginx'
 
-        APACHE_IP = '84.201.161.90'
+        APACHE_IP = '89.169.164.191'
         APACHE_PORT = '8085'
 
         NGINX_IP = ''
@@ -25,7 +25,6 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    // Собираем Docker-образ из Dockerfile в репозитории
                     docker.build("${DOCKER_IMAGE}")
                 }
             }
