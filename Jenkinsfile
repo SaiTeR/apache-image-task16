@@ -9,7 +9,7 @@ pipeline {
         APACHE_CONTAINER_NAME = 'apache'
         NGINX_CONTAINER_NAME = 'nginx'
 
-        APACHE_IP = '89.169.164.191'
+        APACHE_IP = '158.160.73.86'
         APACHE_PORT = '8085'
 
         NGINX_IP = ''
