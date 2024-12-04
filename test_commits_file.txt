@@ -1,1 +1,15 @@
 ячсячсячсячсчя
+
+docker tag apache-t16 cr.yandex/crpvem9c0799ctn25n8t/apache:latest
+docker push cr.yandex/crpvem9c0799ctn25n8t/apache:latest
+
+docker tag nginx-t16 cr.yandex/crpvem9c0799ctn25n8t/nginx:latest
+
+
+
+y0_AgAEA7qkoFiZAATuwQAAAAEVHL5WAAAyYJ8u811INKSTYD2ZxqgEgWD7xw
+
+echo y0_AgAEA7qkoFiZAATuwQAAAAEVHL5WAAAyYJ8u811INKSTYD2ZxqgEgWD7xw|docker login \
+  --username oauth \
+  --password-stdin \
+ cr.yandex
