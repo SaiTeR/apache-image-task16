@@ -27,8 +27,7 @@ pipeline {
         stage('Tag Docker Image') {
             steps {
                 script {
-                    // Присваиваем тег собранному Docker-образу
-                    docker.tag("${DOCKER_IMAGE}", "${REGISTRY}/apache:${DOCKER_TAG}")
+                    sh 'docker tag apache-t16 cr.yandex/crpvem9c0799ctn25n8t/apache:latest'
                 }
             }
         }
@@ -36,8 +35,7 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    // Отправляем тегированный Docker-образ в контейнерный реестр
-                    docker.push("${REGISTRY}/apache:${DOCKER_TAG}")
+                    sh 'docker push cr.yandex/crpvem9c0799ctn25n8t/apache:latest'
                 }
             }
         }
