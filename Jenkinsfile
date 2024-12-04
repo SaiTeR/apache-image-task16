@@ -66,7 +66,6 @@ pipeline {
 
                         echo "Running new container..."
                         docker run -d --name ${env.APACHE_CONTAINER_NAME} -p ${env.APACHE_PORT}:${env.APACHE_PORT} -e PORT=${env.APACHE_PORT} ${env.REGISTRY}/apache:latest
-                        EOF
                         """
                     }
                 }
