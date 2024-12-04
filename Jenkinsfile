@@ -11,7 +11,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Скачиваем репозиторий с GitHub, используя SSH credentials
-                git credentialsId: 'c2b72dca-36c7-4e52-bcd3-114e7a266a37', url: 'git@github.com:SaiTeR/apache-image-task16.git', branch: 'main'
+                git credentialsId: '5993ba5d-138a-4314-a8ca-507961cd0286', url: 'git@github.com:SaiTeR/apache-image-task16.git', branch: 'main'
             }
         }
 
