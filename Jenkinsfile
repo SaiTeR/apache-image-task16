@@ -6,13 +6,11 @@ pipeline {
         DOCKER_TAG = 'latest'          
         REGISTRY = 'cr.yandex/crpvem9c0799ctn25n8t' 
 
-        APACHE_CONTAINER_NAME = 'apache'
-        NGINX_CONTAINER_NAME = 'nginx'
+        CONTAINER_NAME = 'apache'
 
         APACHE_IP = '158.160.73.86'
         APACHE_PORT = '8085'
 
-        NGINX_IP = ''
     }
 
     stages {
@@ -55,8 +53,8 @@ pipeline {
                         ssh ubuntu@${env.APACHE_IP} << EOF
 
                         echo "Stopping and removing old container..."
-                        docker stop ${env.APACHE_CONTAINER_NAME} || true
-                        docker rm ${env.APACHE_CONTAINER_NAME} || true
+                        docker stop ${env.CONTAINER_NAME} || true
+                        docker rm ${env.CONTAINER_NAME} || true
 
                         echo "Removing old image..."
                         docker rmi ${env.REGISTRY}/apache:latest || true
@@ -65,7 +63,7 @@ pipeline {
                         docker pull ${env.REGISTRY}/apache:latest
 
                         echo "Running new container..."
-                        docker run -d --name ${env.APACHE_CONTAINER_NAME} -p ${env.APACHE_PORT}:${env.APACHE_PORT} -e PORT=${env.APACHE_PORT} ${env.REGISTRY}/apache:latest
+                        docker run -d --name ${env.CONTAINER_NAME} -p ${env.APACHE_PORT}:${env.APACHE_PORT} -e PORT=${env.APACHE_PORT} ${env.REGISTRY}/apache:latest
                         """
                     }
                 }
@@ -75,7 +73,7 @@ pipeline {
 
     post {
         always {
-            cleanWs() // Очистка рабочей директории после сборки
+            cleanWs()
         }
     }
 }
